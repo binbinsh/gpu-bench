@@ -1,0 +1,6 @@
+[submodule "cuda-samples"]
+	path = cuda-samples
+	url = https://github.com/NVIDIA/cuda-samples.git
+[submodule "transformer-engine"]
+	path = transformer-engine
+	url = https://github.com/NVIDIA/TransformerEngine.git

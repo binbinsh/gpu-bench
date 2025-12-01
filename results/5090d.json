@@ -1,0 +1,71 @@
+{
+  "matrix_dim": 8192,
+  "compute_iterations": 30,
+  "mem_iterations": 30,
+  "target_seconds": 120,
+  "tensor_cores": true,
+  "parallel": true,
+  "devices": [
+    {
+      "cuda_index": 1,
+      "name": "NVIDIA GeForce RTX 5090 D",
+      "sm": "12.0",
+      "total_memory_bytes": 33665843200,
+      "free_memory_bytes": 33100398592,
+      "compute": [
+        {
+          "precision": "fp32",
+          "matrix_dim": 8192,
+          "iterations": 12720,
+          "tensor_cores": true,
+          "throughput": 116.298,
+          "throughput_unit": "TFLOP/s",
+          "elapsed_ms": 120258
+        },
+        {
+          "precision": "bf16",
+          "matrix_dim": 8192,
+          "iterations": 25650,
+          "tensor_cores": true,
+          "throughput": 234.831,
+          "throughput_unit": "TFLOP/s",
+          "elapsed_ms": 120097
+        },
+        {
+          "precision": "fp16",
+          "matrix_dim": 8192,
+          "iterations": 25800,
+          "tensor_cores": true,
+          "throughput": 236.347,
+          "throughput_unit": "TFLOP/s",
+          "elapsed_ms": 120024
+        },
+        {
+          "precision": "fp8",
+          "matrix_dim": 8192,
+          "iterations": 59880,
+          "tensor_cores": true,
+          "throughput": 548.506,
+          "throughput_unit": "TFLOP/s",
+          "elapsed_ms": 120033
+        },
+        {
+          "precision": "fp4",
+          "matrix_dim": 8192,
+          "iterations": 170320,
+          "tensor_cores": true,
+          "throughput": 1039.98,
+          "throughput_unit": "TFLOP/s",
+          "elapsed_ms": 180069
+        }
+      ],
+      "memory": {
+        "bytes": 13240159436,
+        "d2d_iterations": 3500,
+        "streaming_iterations": 3050,
+        "d2d_bandwidth_gbs": 1528.83,
+        "streaming_bandwidth_gbs": 1340.81
+      }
+    }
+  ]
+}

@@ -1,6 +1,3 @@
-
-gpu_burn-drv\.o
-
-compare\.ptx
-
-gpu_burn
+gpu_bench
+.venv/
+transformer-engine/build/

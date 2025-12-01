@@ -1,0 +1,59 @@
+.TH GPU_BENCH "8" "January 2024" "gpu-bench" "System Administration Utilities"
+.SH NAME
+gpu_bench \- Multi-GPU quantized compute and memory benchmark
+.SH SYNOPSIS
+.B gpu_bench
+[\fI\,OPTIONS\/\fR]
+.SH DESCRIPTION
+gpu_bench drives CUDA GPUs with GEMM and bandwidth workloads across precisions (fp32/fp16/bf16/fp8/fp4/fp64; fp4 requires a Transformer Engine build, fp8 needs SM90+). It reports per-GPU throughput and sizing in JSON when requested.
+.SH OPTIONS
+Most options mirror the built-in help:
+.TP
+\fB--list\fR
+List CUDA GPUs and exit.
+.TP
+\fB--devices\fR <csv|all>
+Select device indices (default all).
+.TP
+\fB--precisions\fR <csv>
+Choose precisions (fp32,fp16,bf16,fp8,fp4,fp64); default fp32,bf16,fp16,fp8. fp4 requires ENABLE_FP4_BENCH + Transformer Engine, fp8 needs SM90+ GPUs.
+.TP
+\fB--matrix\fR <N>
+Square GEMM size (default 8192).
+.TP
+\fB--compute-iters\fR, \fB--mem-iters\fR <N>
+Iteration counts for compute and memory loops.
+.TP
+\fB--seconds\fR|\fB--duration\fR <N>
+Minimum time to keep each phase busy.
+.TP
+\fB--mem\fR <bytes|percent%>
+Buffer size for bandwidth tests (default 90% of free memory).
+.TP
+\fB--parallel\fR
+Run all selected GPUs concurrently.
+.TP
+\fB--no-compute\fR / \fB--no-memory\fR
+Skip compute or memory phases.
+.TP
+\fB--no-tensor-cores\fR
+Disable tensor core math modes.
+.TP
+\fB--report\fR <file>
+Write JSON summary to <file>.
+.TP
+\fB--help\fR
+Show full help.
+.SH EXAMPLES
+.IP
+List devices:
+.br
+\fBgpu_bench --list\fR
+.IP
+All-GPU sweep with report:
+.br
+\fBgpu_bench --matrix 8192 --compute-iters 30 --mem 90% --seconds 120 --parallel --report results/quant-all.json\fR
+.IP
+Single-GPU FP4 check (Transformer Engine build):
+.br
+\fBgpu_bench --devices 0 --precisions fp4 --matrix 12288 --compute-iters 80 --seconds 180 --no-memory --report results/fp4.json\fR

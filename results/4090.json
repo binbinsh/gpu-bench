@@ -1,0 +1,53 @@
+{
+  "matrix_dim": 8192,
+  "compute_iterations": 30,
+  "mem_iterations": 30,
+  "target_seconds": 120,
+  "tensor_cores": true,
+  "parallel": true,
+  "devices": [
+    {
+      "cuda_index": 0,
+      "name": "NVIDIA GeForce RTX 4090",
+      "sm": "8.9",
+      "total_memory_bytes": 25250627584,
+      "free_memory_bytes": 24836308992,
+      "compute": [
+        {
+          "precision": "fp32",
+          "matrix_dim": 8192,
+          "iterations": 9840,
+          "tensor_cores": true,
+          "throughput": 89.9397,
+          "throughput_unit": "TFLOP/s",
+          "elapsed_ms": 120294
+        },
+        {
+          "precision": "bf16",
+          "matrix_dim": 8192,
+          "iterations": 19110,
+          "tensor_cores": true,
+          "throughput": 175.089,
+          "throughput_unit": "TFLOP/s",
+          "elapsed_ms": 120005
+        },
+        {
+          "precision": "fp16",
+          "matrix_dim": 8192,
+          "iterations": 19110,
+          "tensor_cores": true,
+          "throughput": 175.067,
+          "throughput_unit": "TFLOP/s",
+          "elapsed_ms": 120021
+        }
+      ],
+      "memory": {
+        "bytes": 9934523596,
+        "d2d_iterations": 2800,
+        "streaming_iterations": 2550,
+        "d2d_bandwidth_gbs": 918.813,
+        "streaming_bandwidth_gbs": 842.718
+      }
+    }
+  ]
+}
