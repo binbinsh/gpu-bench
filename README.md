@@ -1,6 +1,22 @@
 # gpu-bench
 Multi-GPU CUDA quantized compute/memory benchmark suite (fp4/fp8/bf16/fp16/fp32/fp64). Follows CUDA sample patterns (`matrixMulCUBLAS`, `bandwidthTest`) to hit 100% SM and memory load.
 
+Local benchmark results (cuBLASLt + Transformer Engine), run on my desktop with `matrix=8192`, `compute-iters=30`, `seconds=120` (FP4 uses `seconds=180`):
+
+| Metric | [RTX 5090 D](results/5090d.json) | [RTX 4090](results/4090.json) |
+| --- | --- | --- |
+| SM | 12.0 | 8.9 |
+| fp32 (TFLOP/s) | 116.3 | 89.9 |
+| bf16 (TFLOP/s) | 234.8 | 175.1 |
+| fp16 (TFLOP/s) | 236.3 | 175.1 |
+| fp8 with fp32 accum (TFLOP/s) | 548.5 | N/A |
+| fp4 with fp32 accum (TFLOP/s) | 1040.0 | N/A |
+| Memory D2D memcpy (GB/s) | 1528.8 | 918.8 |
+| Memory Streaming (GB/s) | 1340.8 | 842.7 |
+
+**Note:** FP8 tensor cores require SM90+ (Hopper/Blackwell). RTX 4090 (Ada, SM89) does not expose FP8 kernels; NVIDIA forum confirmation: https://forums.developer.nvidia.com/t/4090-doesnt-have-fp8-compute/232256
+
+
 ## Quick start
 ```bash
 git clone https://github.com/binbinsh/gpu-bench.git
@@ -57,22 +73,6 @@ Key flags:
 - `--mem <bytes|percent%>`: control bandwidth test size
 - `--mem-iters <N>`: control bandwidth test length
 - `--report <path>`: JSON summary per GPU
-
-## Latest results (cuBLASLt + Transformer Engine)
-All runs use `matrix=8192`, `compute-iters=30`, `seconds=120` unless noted. FP4 uses `seconds=180`.
-
-| Metric | [RTX 5090 D](results/5090d.json) | [RTX 4090](results/4090.json) |
-| --- | --- | --- |
-| SM | 12.0 | 8.9 |
-| fp32 (TFLOP/s) | 116.3 | 89.9 |
-| bf16 (TFLOP/s) | 234.8 | 175.1 |
-| fp16 (TFLOP/s) | 236.3 | 175.1 |
-| fp8 (TFLOP/s, FP32 accum) | 548.5 | N/A |
-| fp4 (TFLOP/s, FP32 accum) | 1040.0 | N/A |
-| Memory D2D memcpy (GB/s) | 1528.8 | 918.8 |
-| Memory Streaming (GB/s) | 1340.8 | 842.7 |
-
-**Note:** FP8 tensor cores require SM90+ (Hopper/Blackwell). RTX 4090 (Ada, SM89) does not expose FP8 kernels; NVIDIA forum confirmation: https://forums.developer.nvidia.com/t/4090-doesnt-have-fp8-compute/232256
 
 ## Acknowledgments
 - Inspired by the [gpu-burn](https://github.com/wilicc/gpu-burn) project.
